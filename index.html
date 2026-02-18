@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Credit Score Simulator</title>
+  <link rel="stylesheet" href="style.css" />
+  <script defer src="https://cdn.jsdelivr.net/pyodide/v0.26.4/full/pyodide.js"></script>
+  <script defer src="app.js"></script>
+</head>
+<body>
+  <main class="page">
+    <section class="card">
+      <h1>Credit Score Simulator</h1>
+      <p class="subtitle">Explore how common credit behaviors can influence an estimated score range.</p>
+
+      <div id="engineStatus" class="engine-status" aria-live="polite">
+        <span class="spinner" aria-hidden="true"></span>
+        <span>Loading Python engine...</span>
+      </div>
+
+      <form id="calcForm" novalidate>
+        <div class="grid">
+          <label>Current Score (300-850)
+            <input id="current_score" type="number" min="300" max="850" required value="700" />
+          </label>
+          <label>Utilization (%)
+            <input id="utilization_percent" type="number" min="0" max="100" required value="35" />
+          </label>
+          <label>On-time Payments (%)
+            <input id="on_time_payments_percent" type="number" min="0" max="100" required value="96" />
+          </label>
+          <label>Age of Oldest Account (years)
+            <input id="age_oldest_account_years" type="number" min="0" step="0.1" required value="6" />
+          </label>
+          <label>Hard Inquiries (last 12mo)
+            <input id="hard_inquiries_last_12mo" type="number" min="0" required value="2" />
+          </label>
+          <label>New Accounts (last 12mo)
+            <input id="new_accounts_last_12mo" type="number" min="0" required value="1" />
+          </label>
+          <label>Derogatory Marks
+            <select id="derogatory_marks">
+              <option value="0">0</option>
+              <option value="1">1</option>
+              <option value="2">2+</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="actions">
+          <button id="calcButton" type="submit" disabled>Calculate</button>
+          <button id="copyButton" type="button" disabled>Copy Results</button>
+        </div>
+        <p id="errorBox" class="error" role="alert"></p>
+      </form>
+
+      <section id="results" class="results" hidden>
+        <h2>Estimated Result</h2>
+        <p id="scoreRange" class="range"></p>
+
+        <h3>Factor Breakdown</h3>
+        <ul id="factorList"></ul>
+
+        <h3>Top Improvement Tips</h3>
+        <ol id="tipsList"></ol>
+      </section>
+
+      <p class="disclaimer">Estimates only. Not financial advice.</p>
+    </section>
+  </main>
+</body>
+</html>
